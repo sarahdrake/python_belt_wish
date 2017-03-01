@@ -36,7 +36,7 @@ class UserManager(models.Manager):
                 errors.append("Invalid hire date format")
         # cannot further process the request if dates are not validate
         if len(errors) > 0:
-            return {"success": False, "error_list": errors}
+            return (False, errors)
         # future date check
         if hiredate > datetime.now():
             errors.append("Hire date must be from the past")

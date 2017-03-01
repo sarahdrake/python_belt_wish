@@ -15,11 +15,11 @@ def process(request):
         return redirect('/')
     else:
         user_valid = User.objects.validate(request.POST)
-    if user_valid["success"] == True:
+    if user_valid[0] == True:
         request.session["id"] = user_valid[1].id
         return redirect('/dashboard')
     else:
-        for msg in user_valid["error_list"]:
+        for msg in user_valid[1]:
             messages.add_message(request, messages.INFO, msg)
         return redirect('/')
 def login(request):
