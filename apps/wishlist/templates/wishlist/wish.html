@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Wish</title>
+  </head>
+  <body>
+    <a href='/dashboard'>Home</a>
+    <a href='/logout'>Logout</a>
+    <h1>{{item.item}}</h1>
+    <h3>Users who added this product/item under their wish list:</h3>
+    {%for member in members%}
+    <p>{{member.name}}</p>
+    {%endfor%}
+  </body>
+</html>

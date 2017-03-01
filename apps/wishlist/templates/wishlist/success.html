@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Homepage</title>
+  </head>
+  <body>
+    {%if messages%}
+  <ul>
+    {%for msg in messages%}
+    <li>{{msg}}</li>
+    {%endfor%}
+  </ul>
+  {%endif%}
+  <h1>Welcome, {{user.name}}!</h1>
+    <a href='/logout'>Log out</a>
+    <p>Your Wish List:</p>
+    <table class='chart'>
+      <thead>
+        <th>Item</th>
+        <th>Added by</th>
+        <th>Date Added</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <!-- FOR LOOP -->
+        {%for wish in my_wishes%}
+        <tr>
+          <td><a href='/wish_items/{{wish.id}}'>{{wish.item}}</a></td>
+          <td>{{wish.creator.name}}</td>
+          <td>{{wish.created_at|date:"M d, Y"}}</td>
+          {% if wish.creator == user %}
+          <td><a href="/delete/{{wish.id}}">Delete</a></td>
+          {% else %}
+          <td><a href="/remove/{{wish.id}}">Remove from my wishlist</a></td>
+        </tr>
+        {% endif %}
+        {%endfor%}
+        <!-- END FOR -->
+      </tbody>
+    </table>
+    <p>Other User's Wish Lists:</p>
+    <table class='chart'>
+      <thead>
+        <th>Item</th>
+        <th>Added by</th>
+        <th>Date Added</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+          <!-- FOR LOOP -->
+          {%for wish in other_wishes%}
+          <tr>
+            <td><a href='/wish_items/{{wish.id}}'>{{wish.item}}</a></td>
+            <td>{{wish.creator}}</td>
+            <td>{{wish.created_at|date:"M d, Y"}}</td>
+            <td><a href="/add/{{wish.id}}">Add to my wish list</a></td>
+          </tr>
+          {% endfor %}
+          <!-- END LOOP -->
+      </tbody>
+    </table>
+    <a href='/add'>Add a new item</a>
+  </body>
+</html>
